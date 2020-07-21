@@ -173,6 +173,7 @@ Dark green: #28b485
 
 */
 
+
 * {
   margin: 0;
   padding: 0;
@@ -184,16 +185,16 @@ body {
   font-size: 16px;
   font-weight: 400;
   line-height: 1.7;
-  color: #777;
 }
 
 .header {
+  margin-top: -30px;
   height: 95vh;
   background-image: linear-gradient(
       to right bottom, 
       rgba(83, 79, 79, 0.5),
       rgba(228, 236, 233, 0.5)
-  ), url(flaskblog/static/img/hero1.jpg);
+  ), url(img/hero1.jpg);
   background-position: top;
   background-size: cover;
   clip-path: polygon(0 0, 100% 0, 100% 80vh, 0 100%);
@@ -260,3 +261,25 @@ body {
       transform: translate(0);
   }
 }
+
+
+legend {
+  color: black;
+}
+
+label {
+  font-size: 20px;
+  color: black;
+}
+
+
+/* Chat Box user css */
+#output {
+  font-size: 25px;
+}
+
+#feedback {
+  padding-left: 10px;
+  font-size: 25px;
+}
+/* End here */

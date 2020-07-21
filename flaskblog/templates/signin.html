@@ -1,5 +1,59 @@
-{% extends "layout.html" %}
-	{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+	{% if title %}
+		<title>LetsConnect - {{title}}</title>
+	{% else %}
+		<title>Home Page</title>
+	{% endif %}
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'main.css') }}">
+
+	<style type="text/css">
+		nav {
+			margin-bottom: 3%;
+		}
+		button {
+			margin-right: 10px;
+		}
+	</style>
+</head>
+<body>
+
+	<header class="site-header">
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+		  <div class="container">
+			<a class="navbar-brand mr-4" href="/"> LetsConnect</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+			  <span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarToggle">
+			  <div class="navbar-nav mr-auto">
+				<a class="nav-item nav-link" href="{{url_for('home')}}"><i class="fas fa-users"></i> Home</a>
+				<!-- <a class="nav-item nav-link" href="{{url_for('about')}}"><i class="fas fa-user-edit"></i> About</a> -->
+			  </div>
+			  <!-- Navbar Right Side -->
+			  <div class="navbar-nav">
+				  {% if current_user.is_authenticated %}
+					  <a class="nav-item nav-link" href="{{url_for('chat')}}"><i class="fas fa-comment"></i> ChatBox</a>
+					  <a class="nav-item nav-link" href="{{url_for('new_post')}}"><i class="fas fa-user-edit"></i> New Post</a>
+					  <a class="nav-item nav-link" href="{{url_for('account')}}"><i class="fas fa-user-cog"></i> Profile</a>
+					  <a class="nav-item nav-link" href="{{url_for('logout')}}"><i class="fas fa-user-minus"></i> Logout</a>
+				  {% else %}
+						<a class="nav-item nav-link" href="{{url_for('signin')}}"><i class="fas fa-user-lock"></i> Sign in</a>
+						<a class="nav-item nav-link" href="{{url_for('signup')}}"><i class="fas fa-user-plus"></i> Sign up</a>
+					{% endif %}
+			  </div>
+			</div>
+		  </div>
+		</nav>
+	  </header>
+
+	  <div class="container">
 		<div class="content-section">
 			<form method="POST" action="">
 				{{ form.hidden_tag() }}
@@ -46,10 +100,12 @@
 					<a href="#">Forgot Password</a>
 				</small>
 			</form>
-		</div>
+		</>
 		<div class="border-top pt-3">
 			<small class="text-muted">
 				New to this place <a href="{{ url_for('signup') }}" class="ml-2">sign up</a>
 			</small>
 		</div>
-	{% endblock %}
+		</div>
+</body>
+</html>

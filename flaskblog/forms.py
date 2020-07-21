@@ -6,10 +6,10 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationE
 from flaskblog.models import User 
 
 class SignUp(FlaskForm):
-	username = StringField('username', validators = [DataRequired(), Length(min = 4, max = 15)])
+	username = StringField('Username', validators = [DataRequired(), Length(min = 4, max = 15)])
 	email = StringField('Email', validators = [DataRequired(), Email()])
-	password = PasswordField('password', validators = [DataRequired()])
-	confirm_password = PasswordField('confirm password', validators = [DataRequired(), EqualTo('password')])
+	password = PasswordField('Password', validators = [DataRequired()])
+	confirm_password = PasswordField('Confirm Password', validators = [DataRequired(), EqualTo('password')])
 	submit = SubmitField('sign up')
 
 	def validate_username(self, username):
@@ -24,7 +24,7 @@ class SignUp(FlaskForm):
 
 class SignIn(FlaskForm):
 	email = StringField('Email', validators = [DataRequired(), Email()])
-	password = PasswordField('password', validators = [DataRequired()])
+	password = PasswordField('Password', validators = [DataRequired()])
 	remember_me = BooleanField('remember me')
 	submit = SubmitField('sign in')
 
