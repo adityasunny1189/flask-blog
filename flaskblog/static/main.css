@@ -84,6 +84,8 @@ a.article-title:hover {
   color: #fff;
 }
 
+/* Chat Application Style */
+
 .blog-chat-box{
     font-size: 18px;
     padding: 10px 20px;
@@ -172,7 +174,6 @@ Medium green: #55c57a
 Dark green: #28b485
 
 */
-
 
 * {
   margin: 0;
@@ -283,3 +284,8 @@ label {
   font-size: 25px;
 }
 /* End here */
+
+/* Hidden Profile */
+.hidden-profile {
+  display: none;
+}
