@@ -2,7 +2,7 @@
 <html>
 <head>
 	{% if title %}
-		<title>Flask Blog - {{title}}</title>
+		<title>LetsConnect - {{title}}</title>
 	{% else %}
 		<title>Home Page</title>
 	{% endif %}
@@ -26,7 +26,7 @@
 	<header class="site-header">
 	  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
 	    <div class="container">
-	      <a class="navbar-brand mr-4" href="/"><i class="fas fa-blog"></i> Flask Blog</a>
+	      <a class="navbar-brand mr-4" href="/"> LetsConnect</a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="navbar-toggler-icon"></span>
 	      </button>
@@ -37,7 +37,8 @@
 	        </div>
 	        <!-- Navbar Right Side -->
 	        <div class="navbar-nav">
-	        	{% if current_user.is_authenticated %}
+				{% if current_user.is_authenticated %}
+					<a class="nav-item nav-link" href="{{url_for('chat')}}"><i class="fas fa-comment"></i> ChatBox</a>
 	        		<a class="nav-item nav-link" href="{{url_for('new_post')}}"><i class="fas fa-user-edit"></i> New Post</a>
 	        		<a class="nav-item nav-link" href="{{url_for('account')}}"><i class="fas fa-user-cog"></i> Profile</a>
 	        		<a class="nav-item nav-link" href="{{url_for('logout')}}"><i class="fas fa-user-minus"></i> Logout</a>
@@ -51,6 +52,7 @@
 	  </nav>
 	</header>
 
+	{% if current_user.is_authenticated %}
 	<main role="main" class="container">
 	  <div class="row">
 	    <div class="col-md-8">
@@ -67,19 +69,24 @@
 	    </div>
 	    <div class="col-md-4">
 	      <div class="content-section">
-	        <h3>Our Sidebar</h3>
-	        <p class='text-muted'>You can put any information here you'd like.
-	          <ul class="list-group">
-	            <li class="list-group-item list-group-item-light">Latest Posts</li>
-	            <li class="list-group-item list-group-item-light">Announcements</li>
-	            <li class="list-group-item list-group-item-light">Calendars</li>
-	            <li class="list-group-item list-group-item-light">etc</li>
-	          </ul>
-	        </p>
+	        <h3>Game-Zone</h3>
+	        <div class="embed-responsive embed-responsive-16by9">
+				<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
+			  </div>
 	      </div>
 	    </div>
 	  </div>
 	</main>	
+	{% else %}
+	<header class="header">
+		<div class="text-box">
+			<h1 class="heading-primary">
+				<span class="heading-primary-main">DevWorld</span>
+				<span class="heading-primary-sub">A Community for developers</span>
+			</h1>
+		</div>
+	</header>
+	{% endif %}
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

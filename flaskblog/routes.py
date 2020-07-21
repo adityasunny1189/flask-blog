@@ -6,10 +6,14 @@ from flaskblog.models import User, Post
 from flaskblog.forms import SignUp, SignIn, UpdateProfile, PostForm
 from flaskblog import app, db, bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
+from flask_socketio import SocketIO
+
+socketio = SocketIO(app)
 
 @app.route('/')
 def index():
-	posts = Post.query.all()
+	page = request.args.get('page', 1, type = int)
+	posts = Post.query.order_by(Post.date_posted.desc()).paginate(page = page, per_page = 5)
 	return render_template('index.html', blog_posts = posts)
 
 
@@ -131,3 +135,24 @@ def delete_post(post_id):
 	db.session.commit()
 	flash('Your Post has been deleted', 'success')
 	return redirect(url_for('home'))
+
+@app.route('/user/<string:username>')
+def user_post(username):
+	user = User.query.filter_by(username = username).first_or_404()
+	page = request.args.get('page', 1, type = int)
+	posts = Post.query.filter_by(author = user).order_by(Post.date_posted.desc()).paginate(page = page, per_page = 5)
+	return render_template('user_post.html', blog_posts = posts, user = user)
+
+
+@app.route('/chat', methods = ['GET', 'POST'])
+@login_required
+def chat():
+    return render_template('chat.html', title = "ChatBox")
+
+def messageReceived(methods=['GET', 'POST']):
+    print('message was received!!!')
+
+@socketio.on('my event')
+def handle_my_custom_event(json, methods=['GET', 'POST']):
+    print('received my event: ' + str(json))
+    socketio.emit('my response', json, callback=messageReceived)

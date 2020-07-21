@@ -83,3 +83,180 @@ a.article-title:hover {
   font-weight: 600;
   color: #fff;
 }
+
+.blog-chat-box{
+    font-size: 18px;
+    padding: 10px 20px;
+    color: #2feb77;
+}
+
+#mario-chat{
+    margin: 30px auto;
+    border: 1px solid #ddd;
+    box-shadow: 1px 3px 5px rgba(0,0,0,0.05);
+    border-radius: 2px;
+}
+
+#chat-window{
+    height: 600px;
+    overflow: auto;
+    background: #cfcece8c;
+}
+
+#output p{
+    padding: 14px 0px;
+    margin: 0 20px;
+    border-bottom: 1px solid #e9e9e9;
+    color: #555;
+}
+
+#feedback p{
+    color: #aaa;
+    padding: 14px 0px;
+    margin: 0 20px;
+}
+
+.blog-chat-head {
+  color: #2feb77;
+  margin: auto;
+  text-align: center;
+  margin-top: 20px;
+}
+.strong{
+    color: #2feb77;
+    font-weight: bolder;
+}
+
+.chat-label{
+    box-sizing: border-box;
+    display: block;
+    padding: 10px 20px;
+}
+
+.blog-chat-imput{
+    padding: 10px 20px;
+    box-sizing: border-box;
+    background: #eee;
+    border: 0;
+    display: block;
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    font-family: Nunito;
+    font-size: 16px;
+}
+
+.chat-but{
+    background: #2feb77;
+    color: #fff;
+    font-size: 18px;
+    border: 0;
+    padding: 12px 0;
+    width: 100%;
+    border-radius: 0 0 2px 2px;
+}
+
+.outer {
+  padding-left: 1rem;
+  padding-top: 1rem;
+  margin-bottom: 4px;
+}
+
+/* Styles for landing page */
+
+/*
+COLORS:
+
+Light green: #7ed56f
+Medium green: #55c57a
+Dark green: #28b485
+
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "lato";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #777;
+}
+
+.header {
+  height: 95vh;
+  background-image: linear-gradient(
+      to right bottom, 
+      rgba(83, 79, 79, 0.5),
+      rgba(228, 236, 233, 0.5)
+  ), url(flaskblog/static/img/hero1.jpg);
+  background-position: top;
+  background-size: cover;
+  clip-path: polygon(0 0, 100% 0, 100% 80vh, 0 100%);
+  position: relative;
+}
+
+.heading-primary {
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.heading-primary-main {
+  display: block;
+  font-size: 60px;
+  font-weight: 400;
+  letter-spacing: 35px;
+  animation: moveLeft 1s ease-out;
+}
+
+.heading-primary-sub {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 17.4px;
+  animation: moveRight 1s ease-out;
+}
+
+.text-box {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+@keyframes moveLeft {
+  0% {
+      opacity: 0;
+      transform: translateX(-100px);
+  }
+
+  80% {
+      transform: translateX(10px);
+  }
+
+  100% {
+      opacity: 1;
+      transform: translate(0);
+  }
+}
+
+@keyframes moveRight {
+  0% {
+      opacity: 0;
+      transform: translateX(100px);
+  }
+
+  80% {
+      transform: translateX(-10px);
+  }
+
+  100% {
+      opacity: 1;
+      transform: translate(0);
+  }
+}
