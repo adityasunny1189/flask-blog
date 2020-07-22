@@ -289,3 +289,10 @@ label {
 .hidden-profile {
   display: none;
 }
+
+nav {
+  margin-bottom: 3%;
+}
+button {
+  margin-right: 10px;
+}
