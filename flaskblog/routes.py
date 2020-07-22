@@ -197,3 +197,17 @@ def reset_token(token):
 		flash('Your password has been updated, now you can Signin', 'success')
 		return redirect(url_for('signin'))
 	return render_template('reset_token.html', title = "Reset Password", form = form)
+
+
+# Custom error pages
+@app.errorhandler(404)
+def page_not_found(e):
+	return render_template('404.html', title = "404")
+
+@app.errorhandler(403)
+def page_not_found(e):
+	return render_template('403.html', title = "403")
+
+@app.errorhandler(500)
+def page_not_found(e):
+	return render_template('500.html', title = "500")
