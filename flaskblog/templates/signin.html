@@ -54,6 +54,17 @@
 	  </header>
 
 	  <div class="container">
+		<div class="col-md-12">
+	    	{% with messages = get_flashed_messages(with_categories = true) %}
+	    		{% if messages %}
+	    			{% for category, message in messages %}
+	    				<div class="alert alert-{{ category }}">
+	    					{{ message }}
+	    				</div>
+	    			{% endfor %}
+	    		{% endif %}
+	    	{% endwith %}
+	    </div>
 		<div class="content-section">
 			<form method="POST" action="">
 				{{ form.hidden_tag() }}
@@ -95,10 +106,10 @@
 				</fieldset>
 				<div class="form-group">
 					{{ form.submit(class = "btn btn-outline-info") }}
+					<small class="text-muted ml-2">
+						<a href="{{ url_for('reset_request') }}">Forgot Password</a>
+					</small>
 				</div>
-				<small class="text-muted ml-2">
-					<a href="#">Forgot Password</a>
-				</small>
 			</form>
 		</>
 		<div class="border-top pt-3">
