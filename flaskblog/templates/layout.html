@@ -1,93 +1,143 @@
 <!DOCTYPE html>
 <html>
-<head>
-	{% if title %}
-		<title>LetConnect - {{title}}</title>
-	{% else %}
-		<title>Home Page</title>
-	{% endif %}
-	<meta charset="utf-8">
-	<link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'main.css') }}">
-	<script src="{{ url_for('static', filename = 'script.js') }}"></script>
-</head>
-<body>
-	
-	<header class="site-header">
-	  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-	    <div class="container">
-	      <a class="navbar-brand mr-4" href="/"> LetConnect</a>
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="navbar-toggler-icon"></span>
-	      </button>
-	      <div class="collapse navbar-collapse" id="navbarToggle">
-	        <div class="navbar-nav mr-auto">
-	          <a class="nav-item nav-link" href="{{url_for('home')}}"><i class="fas fa-users"></i> Home</a>
-	          <!-- <a class="nav-item nav-link" href="{{url_for('about')}}"><i class="fas fa-user-edit"></i> About</a> -->
-	        </div>
-	        <!-- Navbar Right Side -->
-	        <div class="navbar-nav">
-				{% if current_user.is_authenticated %}
-					<a class="nav-item nav-link" href="{{url_for('chat')}}"><i class="fas fa-comment"></i> ChatBox</a>
-	        		<a class="nav-item nav-link" href="{{url_for('new_post')}}"><i class="fas fa-user-edit"></i> New Post</a>
-	        		<a class="nav-item nav-link" href="{{url_for('account')}}"><i class="fas fa-user-cog"></i> Profile</a>
-	        		<a class="nav-item nav-link" href="{{url_for('logout')}}"><i class="fas fa-user-minus"></i> Logout</a>
-	        	{% else %}
-	          		<a class="nav-item nav-link" href="{{url_for('signin')}}"><i class="fas fa-user-lock"></i> Sign in</a>
-	          		<a class="nav-item nav-link" href="{{url_for('signup')}}"><i class="fas fa-user-plus"></i> Sign up</a>
-	          	{% endif %}
-	        </div>
-	      </div>
-	    </div>
-	  </nav>
-	</header>
+  <head>
+    {% if title %}
+    <title>LetConnect - {{title}}</title>
+    {% else %}
+    <title>Home Page</title>
+    {% endif %}
+    <meta charset="utf-8" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900"
+      rel="stylesheet"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
+      integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename = 'main.css') }}"
+    />
+    <script src="{{ url_for('static', filename = 'script.js') }}"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand mr-4" href="/"> LetConnect</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarToggle"
+            aria-controls="navbarToggle"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="{{url_for('home')}}"
+                ><i class="fas fa-users"></i> Home</a
+              >
+              <!-- <a class="nav-item nav-link" href="{{url_for('about')}}"><i class="fas fa-user-edit"></i> About</a> -->
+            </div>
+            <!-- Navbar Right Side -->
+            <div class="navbar-nav">
+              {% if current_user.is_authenticated %}
+              <a class="nav-item nav-link" href="{{url_for('chat')}}"
+                ><i class="fas fa-comment"></i> ChatBox</a
+              >
+              <a class="nav-item nav-link" href="{{url_for('new_post')}}"
+                ><i class="fas fa-user-edit"></i> New Post</a
+              >
+              <a class="nav-item nav-link" href="{{url_for('account')}}"
+                ><i class="fas fa-user-cog"></i> Profile</a
+              >
+              <a class="nav-item nav-link" href="{{url_for('logout')}}"
+                ><i class="fas fa-user-minus"></i> Logout</a
+              >
+              {% else %}
+              <a class="nav-item nav-link" href="{{url_for('signin')}}"
+                ><i class="fas fa-user-lock"></i> Sign in</a
+              >
+              <a class="nav-item nav-link" href="{{url_for('signup')}}"
+                ><i class="fas fa-user-plus"></i> Sign up</a
+              >
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
 
-	{% if current_user.is_authenticated %}
-	<main role="main" class="container">
-	  <div class="row">
-	    <div class="col-md-8">
-	    	{% with messages = get_flashed_messages(with_categories = true) %}
-	    		{% if messages %}
-	    			{% for category, message in messages %}
-	    				<div class="alert alert-{{ category }}">
-	    					{{ message }}
-	    				</div>
-	    			{% endfor %}
-	    		{% endif %}
-	    	{% endwith %}
-	      {% block content %}{% endblock %}
-	    </div>
-	    <div class="col-md-4">
-	      <div class="content-section">
-	        <h3>Game-Zone</h3>
-	        <div class="embed-responsive embed-responsive-16by9">
-				<iframe class="embed-responsive-item" src=" https://www.youtube.com/embed/watch?v=PSWf2TjTGNY&list=PL-osiE80TeTs4UjLw5MM6OjgkjFeUxCYH&index=9" allowfullscreen></iframe>
-			  </div>
+    {% if current_user.is_authenticated %}
+    <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-8">
+          {% with messages = get_flashed_messages(with_categories = true) %} {%
+          if messages %} {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">
+            {{ message }}
+          </div>
+          {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock
+          %}
+        </div>
+        <div class="col-md-4">
+          <div class="content-section">
+            <h2>Total User :&nbsp &nbsp &nbsp &nbsp {{ total_user }}</h2>
+          </div>
+          <div class="content-section">
+			<h3>Developed &nbsp with &nbsp &#x1F49E &nbsp by</h3>
+			<img class="form-control-file" style="border-radius: 100%; height: 100px; width: 100px; margin: auto;" src="https://media-exp1.licdn.com/dms/image/C5103AQH59DVcRQmWpA/profile-displayphoto-shrink_400_400/0?e=1601510400&v=beta&t=DPj1xeniDbJ4bPxGw3-DBGHCewQUDqnp8cLlVlfAk14" />
+			<div style = "text-align: center; margin-top: 10px;">
+				<h2>Aditya Pathak</h2>
+			<a class="btn btn-success btn-lg" href = "https://adityasunny1189.github.io/my-resume/">Say Hi &nbsp &#x1f44b</a>
+			</div>
 		  </div>
-		  <div class="content-section">
-	        <h3>Game-Zone</h3>
-	        <div class="embed-responsive embed-responsive-16by9">
-				<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/watch?v=PSWf2TjTGNY&list=PL-osiE80TeTs4UjLw5MM6OjgkjFeUxCYH&index=9" allowfullscreen></iframe>
-			  </div>
-	      </div>
-	    </div>
-	  </div>
-	</main>	
-	{% else %}
-	<header class="header">
-		<div class="text-box">
-			<h1 class="heading-primary">
-				<span class="heading-primary-main">LetConnect</span>
-				<!-- <span class="heading-primary-sub">A Community for developers</span> -->
-			</h1>
-		</div>
-	</header>
-	{% endif %}
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</body>
+          </div>
+        </div>
+      </div>
+    </main>
+    {% else %}
+    <header class="header">
+      <div class="text-box">
+        <h1 class="heading-primary">
+          <span class="heading-primary-main">LetConnect</span>
+          <!-- <span class="heading-primary-sub">A Community for developers</span> -->
+        </h1>
+      </div>
+    </header>
+    {% endif %}
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

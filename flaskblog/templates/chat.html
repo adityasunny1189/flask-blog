@@ -1,44 +1,173 @@
-{% extends "layout.html" %}
-{% block content %}
-<div class="container" style="background-color: #272822;">
-  <h1 class="blog-chat-head">LetConnect.co Global Chat</h1>
-  <div id="mario-chat">
-    <h3 class="blog-chat-box">No message yet..</h3>
-    <div class="message_holder" id="chat-window"></div>
+<!DOCTYPE html>
+<html>
+  <head>
+    {% if title %}
+    <title>LetConnect - {{title}}</title>
+    {% else %}
+    <title>Home Page</title>
+    {% endif %}
+    <meta charset="utf-8" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900"
+      rel="stylesheet"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
+      integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename = 'main.css') }}"
+    />
+    <script src="{{ url_for('static', filename = 'script.js') }}"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand mr-4" href="/"> LetConnect</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarToggle"
+            aria-controls="navbarToggle"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="{{url_for('home')}}"
+                ><i class="fas fa-users"></i> Home</a
+              >
+              <!-- <a class="nav-item nav-link" href="{{url_for('about')}}"><i class="fas fa-user-edit"></i> About</a> -->
+            </div>
+            <!-- Navbar Right Side -->
+            <div class="navbar-nav">
+              {% if current_user.is_authenticated %}
+              <a class="nav-item nav-link" href="{{url_for('chat')}}"
+                ><i class="fas fa-comment"></i> ChatBox</a
+              >
+              <a class="nav-item nav-link" href="{{url_for('new_post')}}"
+                ><i class="fas fa-user-edit"></i> New Post</a
+              >
+              <a class="nav-item nav-link" href="{{url_for('account')}}"
+                ><i class="fas fa-user-cog"></i> Profile</a
+              >
+              <a class="nav-item nav-link" href="{{url_for('logout')}}"
+                ><i class="fas fa-user-minus"></i> Logout</a
+              >
+              {% else %}
+              <a class="nav-item nav-link" href="{{url_for('signin')}}"
+                ><i class="fas fa-user-lock"></i> Sign in</a
+              >
+              <a class="nav-item nav-link" href="{{url_for('signup')}}"
+                ><i class="fas fa-user-plus"></i> Sign up</a
+              >
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
 
-    <form action="" method="POST" style="margin-bottom: 30px;">
-      <input type="text" class="message blog-chat-imput" placeholder="Messages"/>
-      <button class="chat-but" placeholder="Send">Send</button>
-    </form>
-  </div>
+    {% if current_user.is_authenticated %}
+    <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-12">
+          {% with messages = get_flashed_messages(with_categories = true) %} {%
+          if messages %} {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">
+            {{ message }}
+          </div>
+          {% endfor %} {% endif %} {% endwith %}
+          <div class="container" style="background-color: #272822;">
+            <h1 class="blog-chat-head">LetConnect.co Global Chat</h1>
+            <div id="mario-chat">
+              <h3 class="blog-chat-box">No message yet..</h3>
+              <div class="message_holder" id="chat-window"></div>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
-  <script type="text/javascript">
-    var socket = io.connect('http://' + document.domain + ':' + location.port);
+              <form action="" method="POST" style="margin-bottom: 30px;">
+                <input
+                  type="text"
+                  class="message blog-chat-imput"
+                  placeholder="Messages"
+                />
+                <button class="chat-but" placeholder="Send">Send</button>
+              </form>
+            </div>
 
-    socket.on( 'connect', function() {
-      socket.emit( 'my event', {
-        data: 'User Connected'
-      } )
-      var form = $( 'form' ).on( 'submit', function( e ) {
-        e.preventDefault()
-        let user_name = '{{ current_user.username }}'
-        let user_input = $( 'input.message' ).val()
-        socket.emit( 'my event', {
-          user_name : user_name,
-          message : user_input
-        } )
-        $( 'input.message' ).val( '' ).focus()
-      } )
-    } )
-    socket.on( 'my response', function( msg ) {
-      console.log( msg )
-      if( typeof msg.user_name !== 'undefined' ) {
-        $( 'h3' ).remove()
-        $( 'div.message_holder' ).append( '<div class = "outer"><span id="output" class = "strong">'+msg.user_name + ' : ' +'</span> <span id = "feedback"> '+msg.message+'</span></div>' )
-      }
-    })
-  </script>
-</div>
-{% endblock %}
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+            <script type="text/javascript">
+              var socket = io.connect(
+                "http://" + document.domain + ":" + location.port
+              );
+
+              socket.on("connect", function () {
+                socket.emit("my event", {
+                  data: "User Connected",
+                });
+                var form = $("form").on("submit", function (e) {
+                  e.preventDefault();
+                  let user_name = "{{ current_user.username }}";
+                  let user_input = $("input.message").val();
+                  socket.emit("my event", {
+                    user_name: user_name,
+                    message: user_input,
+                  });
+                  $("input.message").val("").focus();
+                });
+              });
+              socket.on("my response", function (msg) {
+                console.log(msg);
+                if (typeof msg.user_name !== "undefined") {
+                  $("h3").remove();
+                  $("div.message_holder").append(
+                    '<div class = "outer"><span id="output" class = "strong">' +
+                      msg.user_name +
+                      " : " +
+                      '</span> <span id = "feedback"> ' +
+                      msg.message +
+                      "</span></div>"
+                  );
+                }
+              });
+            </script>
+          </div>
+        </div>
+      </div>
+    </main>
+    {% endif %}
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

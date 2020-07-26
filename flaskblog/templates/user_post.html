@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
     {% block content %}
-    <div class="media">
+    <div class="media content-section">
         <img class="rounded-circle account-img" src="{{ url_for('static', filename = 'profile_pics/' + user.avatar) }}">
         <div class="media-body">
           <h2 class="account-heading">{{ user.username }}</h2>
           <p class="text-secondary">{{ user.email }}</p>
         </div>
-      </div>
+    </div>
     <hr>
     <h1 class="col-mb-3">Posts by {{ user.username }} ({{blog_posts.total}})</h1>
 		{% for post in blog_posts.items %}
